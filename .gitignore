@@ -1,0 +1,53 @@
+# ─── Node / Frontend ───────────────────────────────────────────
+node_modules/
+dist/
+.cache/
+.vite/
+*.local
+
+# ─── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ─── Docker ────────────────────────────────────────────────────
+.docker/
+docker-compose.override.yml
+
+# ─── Terraform ─────────────────────────────────────────────────
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+.terraform.lock.hcl
+terraform.tfvars
+*.tfvars
+crash.log
+override.tf
+override.tf.json
+
+# ─── Secrets / Env ─────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# ─── OS / Editor ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+.idea/
+.vscode/
+*.swp
+*.swo
