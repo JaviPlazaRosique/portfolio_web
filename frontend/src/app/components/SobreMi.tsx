@@ -260,55 +260,60 @@ const TECHNOLOGIES = [
   },
 ];
 
-const CV_CONTENT = `JAVI PLAZA
-Desarrollador Cloud & FinOps Specialist
+function CvContent() {
+  const sectionTitle: React.CSSProperties = {
+    color: "#023E8A",
+    fontSize: "0.7rem",
+    fontWeight: 700,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    borderBottom: "2px solid #0077B6",
+    paddingBottom: "4px",
+    marginBottom: "12px",
+    marginTop: "20px",
+  };
+  const bullet: React.CSSProperties = { color: "#334155", fontSize: "0.8rem", marginBottom: "3px" };
 
-──────────────────────────────────────
-EXPERIENCIA
-──────────────────────────────────────
+  return (
+    <div style={{ backgroundColor: "#F8FBFF", border: "1px solid #90E0EF", borderRadius: "12px", padding: "28px", marginTop: "20px", fontFamily: "sans-serif" }}>
+      <div style={{ marginBottom: "20px" }}>
+        <h2 style={{ color: "#023E8A", fontSize: "1.5rem", fontWeight: 800, margin: 0, letterSpacing: "0.04em" }}>JAVIER PLAZA</h2>
+        <p style={{ color: "#0077B6", fontSize: "0.85rem", fontWeight: 600, margin: "4px 0 0", letterSpacing: "0.12em" }}>Data Engineer</p>
+      </div>
 
-Cloud Engineer Senior · TechCloud SL (2022 - Presente)
-• Diseño e implementación de arquitecturas multi-cloud
-• Optimización de costes cloud mediante prácticas FinOps
-• Liderazgo técnico en proyectos de migración a la nube
+      <p style={sectionTitle}>Formación</p>
+      <div style={{ marginBottom: "12px" }}>
+        <p style={{ color: "#023E8A", fontSize: "0.88rem", fontWeight: 700, margin: 0 }}>Master en Big Data & Cloud</p>
+        <p style={{ color: "#0077B6", fontSize: "0.78rem", margin: "2px 0 0" }}>EDEM Escuela de Empresarios</p>
+      </div>
+      <div>
+        <p style={{ color: "#023E8A", fontSize: "0.88rem", fontWeight: 700, margin: 0 }}>Grado en Economía</p>
+        <p style={{ color: "#0077B6", fontSize: "0.78rem", margin: "2px 0 0" }}>Universidad de Murcia</p>
+      </div>
 
-DevOps Engineer · Innovatech (2020 - 2022)
-• Automatización de pipelines CI/CD con Jenkins y GitHub Actions
-• Gestión de infraestructura como código con Terraform
-• Implementación de Kubernetes para orquestación de contenedores
-
-──────────────────────────────────────
-EDUCACIÓN
-──────────────────────────────────────
-
-Grado en Ingeniería Informática
-Universidad Politécnica de Madrid · 2016 - 2020
-
-──────────────────────────────────────
-CERTIFICACIONES
-──────────────────────────────────────
-
-• AWS Certified Solutions Architect – Professional
-• Google Cloud Professional Cloud Architect
-• Microsoft Azure Solutions Architect Expert
-• FinOps Certified Practitioner (FinOps Foundation)
-
-──────────────────────────────────────
-IDIOMAS
-──────────────────────────────────────
-
-• Español: Nativo
-• Inglés: C1 (Avanzado)`;
+      <p style={sectionTitle}>Experiencia</p>
+      <div>
+        <p style={{ color: "#023E8A", fontSize: "0.88rem", fontWeight: 700, margin: 0 }}>Controller Financiero</p>
+        <p style={{ color: "#0077B6", fontSize: "0.78rem", margin: "2px 0 8px" }}>Grupo Veolia</p>
+        {[
+          "Gestión y validación de datos en SAP.",
+          "Preparación de datos y aseguramiento de calidad para auditoría.",
+        ].map((b) => <p key={b} style={bullet}>• {b}</p>)}
+      </div>
+    </div>
+  );
+}
 
 export function SobreMi() {
   const [cvOpen, setCvOpen] = useState(false);
 
   const handleDownloadCV = () => {
-    const blob = new Blob([CV_CONTENT], { type: "text/plain;charset=utf-8" });
+    const text = `JAVIER PLAZA — Data Engineer\nj.plazarosique@gmail.com | 675 336 108 | Valencia, 46021\nlinkedin.com/in/javiplaza | github: JaviPlazaRosique\n\nFORMACIÓN\nMaster en Big Data & Cloud — EDEM Escuela de Empresarios\nGrado en Economía — Universidad de Murcia\n\nEXPERIENCIA\nController Financiero — Grupo Veolia\n• Gestión y validación de datos en SAP.\n• Preparación de datos y aseguramiento de calidad para auditoría.\n\nTECNOLOGÍAS\nLenguajes: Python, R\nCloud & Infraestructura: AWS, GCP, Azure, Terraform, Docker\nBases de Datos: PostgreSQL, MongoDB\nHerramientas: Git\n\nEXTRA\n• Carnet + Vehículo Propio\n• Disponibilidad para viajar`;
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "CV_Javi_Plaza.txt";
+    a.download = "CV_Javier_Plaza.txt";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -463,12 +468,7 @@ export function SobreMi() {
                   transition={{ duration: 0.4 }}
                   className="overflow-hidden"
                 >
-                  <pre
-                    className="mt-6 p-6 rounded-xl text-sm leading-relaxed whitespace-pre-wrap font-mono"
-                    style={{ backgroundColor: "#CAF0F8", color: "#023E8A", border: "1px solid #90E0EF" }}
-                  >
-                    {CV_CONTENT}
-                  </pre>
+                  <CvContent />
                 </motion.div>
               )}
             </AnimatePresence>
