@@ -26,7 +26,7 @@ export function Layout() {
             className="flex items-center gap-2 cursor-pointer"
           >
             <img
-              src="/profile.png"
+              src={`${import.meta.env.BASE_URL}profile.png`}
               alt="Javi Plaza"
               className="w-9 h-9 rounded-full object-cover"
             />

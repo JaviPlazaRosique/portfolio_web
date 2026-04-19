@@ -85,7 +85,7 @@ export function Home() {
         >
           {/* Avatar */}
           <img
-            src="/profile.png"
+            src={`${import.meta.env.BASE_URL}profile.png`}
             alt="Foto de perfil de Javi Plaza"
             className="w-40 h-40 rounded-full mx-auto mb-6 object-cover shadow-2xl border-4"
             style={{ borderColor: "#90E0EF" }}
