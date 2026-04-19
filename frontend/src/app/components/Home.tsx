@@ -84,12 +84,12 @@ export function Home() {
           className="relative z-10"
         >
           {/* Avatar */}
-          <div
-            className="w-28 h-28 rounded-full mx-auto mb-6 flex items-center justify-center shadow-2xl border-4"
-            style={{ backgroundColor: "#00B4D8", borderColor: "#90E0EF" }}
-          >
-            <span className="text-white" style={{ fontSize: "3rem", fontWeight: 700 }}>J</span>
-          </div>
+          <img
+            src="/profile.png"
+            alt="Foto de perfil de Javi Plaza"
+            className="w-40 h-40 rounded-full mx-auto mb-6 object-cover shadow-2xl border-4"
+            style={{ borderColor: "#90E0EF" }}
+          />
 
           <h1
             className="mb-4 tracking-tight"
@@ -98,7 +98,7 @@ export function Home() {
             Web de Javi Plaza
           </h1>
           <p className="mb-10 max-w-lg mx-auto" style={{ color: "#90E0EF", fontSize: "1.2rem" }}>
-            Desarrollador apasionado por la tecnología cloud, el FinOps y la innovación digital.
+            Data Engineer apasionado con la tecnología y la innovación digital.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -25,12 +25,11 @@ export function Layout() {
             onClick={() => navigate("/")}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <div
-              className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-lg"
-              style={{ backgroundColor: "#0077B6" }}
-            >
-              J
-            </div>
+            <img
+              src="/profile.png"
+              alt="Javi Plaza"
+              className="w-9 h-9 rounded-full object-cover"
+            />
             <span className="text-white font-semibold text-lg tracking-wide hidden sm:block">
               Javi Plaza
             </span>

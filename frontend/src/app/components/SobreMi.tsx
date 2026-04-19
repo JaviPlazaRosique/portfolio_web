@@ -355,12 +355,12 @@ export function SobreMi() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div
-            className="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center text-white shadow-2xl border-4"
-            style={{ backgroundColor: "#00B4D8", borderColor: "#90E0EF", fontSize: "2.5rem", fontWeight: 700 }}
-          >
-            J
-          </div>
+          <img
+            src="/profile.png"
+            alt="Foto de perfil de Javi Plaza"
+            className="w-40 h-40 rounded-full mx-auto mb-6 object-cover shadow-2xl border-4"
+            style={{ borderColor: "#90E0EF" }}
+          />
           <h1 style={{ color: "#CAF0F8", fontSize: "2.5rem", fontWeight: 700 }}>Sobre Mí</h1>
           <p className="mt-3 max-w-xl mx-auto" style={{ color: "#90E0EF" }}>
             Soy un desarrollador apasionado por el cloud computing, FinOps y la automatización. Me encanta
