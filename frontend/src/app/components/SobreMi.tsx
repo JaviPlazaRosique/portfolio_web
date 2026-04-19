@@ -363,8 +363,7 @@ export function SobreMi() {
           />
           <h1 style={{ color: "#CAF0F8", fontSize: "2.5rem", fontWeight: 700 }}>Sobre Mí</h1>
           <p className="mt-3 max-w-xl mx-auto" style={{ color: "#90E0EF" }}>
-            Soy un desarrollador apasionado por el cloud computing, FinOps y la automatización. Me encanta
-            construir soluciones escalables y eficientes.
+            Soy un Data Engineer apasionado por las tecnologías Cloud. Defensor de las arquitecturas data-driven. Me encanta construir soluciones escalables y eficientes.
           </p>
         </motion.div>
       </section>
