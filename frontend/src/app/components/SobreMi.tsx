@@ -333,14 +333,10 @@ export function SobreMi() {
   const [cvOpen, setCvOpen] = useState(false);
 
   const handleDownloadCV = () => {
-    const text = `JAVIER PLAZA — Data Engineer\nj.plazarosique@gmail.com | 675 336 108 | Valencia, 46021\nlinkedin.com/in/javiplaza | github: JaviPlazaRosique\n\nFORMACIÓN\nMaster en Big Data & Cloud — EDEM Escuela de Empresarios\nGrado en Economía — Universidad de Murcia\n\nEXPERIENCIA\nController Financiero — Grupo Veolia\n• Gestión y validación de datos en SAP.\n• Preparación de datos y aseguramiento de calidad para auditoría.\n\nTECNOLOGÍAS\nLenguajes: Python, R\nCloud & Infraestructura: AWS, GCP, Azure, Terraform, Docker\nBases de Datos: PostgreSQL, MongoDB\nHerramientas: Git\n\nEXTRA\n• Carnet + Vehículo Propio\n• Disponibilidad para viajar`;
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
-    a.download = "CV_Javier_Plaza.txt";
+    a.href = "/CV_Javier_Plaza.pdf";
+    a.download = "CV_Javier_Plaza.pdf";
     a.click();
-    URL.revokeObjectURL(url);
   };
 
   return (
