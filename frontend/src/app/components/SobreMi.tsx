@@ -334,7 +334,7 @@ export function SobreMi() {
 
   const handleDownloadCV = () => {
     const a = document.createElement("a");
-    a.href = "/CV_Javier_Plaza.pdf";
+    a.href = `${import.meta.env.BASE_URL}CV_Javier_Plaza.pdf`;
     a.download = "CV_Javier_Plaza.pdf";
     a.click();
   };
