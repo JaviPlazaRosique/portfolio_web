@@ -12,3 +12,8 @@ output "execution_arn" {
   description = "Execution ARN of the API Gateway stage"
   value       = aws_api_gateway_stage.this.execution_arn
 }
+
+output "stage_arn" {
+  description = "ARN of the API Gateway stage — required to attach a WAF Web ACL"
+  value       = aws_api_gateway_stage.this.arn
+}

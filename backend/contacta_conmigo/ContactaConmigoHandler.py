@@ -1,7 +1,32 @@
 import json
 import os
+import re
 import boto3
 from botocore.exceptions import ClientError
+
+_MAX_LENGTHS = {"name": 100, "email": 254, "message": 2000}
+
+# Cualquier intento de inyectar código: HTML, JS, SQL, shell, plantillas, etc.
+_INJECTION_RE = re.compile(
+    r"""
+    <[^>]*>                     # etiquetas HTML / XML
+    | javascript\s*:            # URLs javascript:
+    | on\w+\s*=                 # manejadores on* inline (onclick=, onerror=…)
+    | <\s*script               # etiquetas <script
+    | <\s*/\s*script            # etiquetas </script
+    | (?:--|;|\/\*|\*\/)        # comentarios y terminadores SQL
+    | (?:'\s*(?:or|and)\s*')    # SQL injection básico: ' or ', ' and '
+    | \b(?:select|insert|update|delete|drop|union|exec|execute|cast|convert|declare)\b  # palabras clave SQL
+    | [`$]\(                    # interpolación de shell $(...) y backtick
+    | \|\||&&|[|;&]             # operadores de shell
+    | \$\{.*?\}                 # template strings JS/shell
+    | \{\{.*?\}\}               # plantillas Jinja2 / Angular
+    | <%.*?%>                   # plantillas JSP / ERB
+    | <\?(?:php)?               # apertura PHP
+    | \b(?:eval|exec|system|passthru|popen|proc_open|shell_exec|assert)\s*\(  # funciones peligrosas
+    """,
+    re.IGNORECASE | re.VERBOSE,
+)
 
 ses = boto3.client("ses", region_name=os.environ["AWS_SES_REGION"])
 
@@ -28,6 +53,10 @@ def handler(event, _context):
         if not all([name, email, message]):
             return _response(400, {"error": "Faltan campos obligatorios."})
 
+        validation_error = _validate(name, email, message)
+        if validation_error:
+            return _response(400, {"error": validation_error})
+
         _send_email(name, email, message)
 
         return _response(200, {"message": "Mensaje enviado correctamente."})
@@ -39,6 +68,21 @@ def handler(event, _context):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return _response(500, {"error": "Error interno del servidor."})
+
+
+def _validate(name: str, email: str, message: str) -> str | None:
+    fields = {"name": name, "email": email, "message": message}
+
+    for field, value in fields.items():
+        if len(value) > _MAX_LENGTHS[field]:
+            return f"El campo '{field}' supera la longitud máxima permitida."
+        if _INJECTION_RE.search(value):
+            return "El contenido enviado contiene caracteres o patrones no permitidos."
+
+    if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
+        return "El formato del email no es válido."
+
+    return None
 
 
 def _send_email(name: str, email: str, message: str) -> None:

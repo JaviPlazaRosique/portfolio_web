@@ -39,6 +39,15 @@ module "lambda_contacto" {
   tags = var.tags
 }
 
+module "waf" {
+  source = "./modules/waf"
+
+  name                  = "portfolio-waf"
+  api_gateway_stage_arn = module.api_gateway.stage_arn
+  rate_limit            = 10
+  tags                  = var.tags
+}
+
 module "api_gateway" {
   source = "./modules/api_gateway"
 
