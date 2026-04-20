@@ -45,15 +45,28 @@ const CONTACT_LINKS = [
 export function Home() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
+    setStatus("sending");
+
+    try {
+      const res = await fetch(import.meta.env.VITE_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      setStatus("success");
       setForm({ name: "", email: "", message: "" });
-    }, 3000);
+      setTimeout(() => setStatus("idle"), 4000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
 
   return (
@@ -270,10 +283,13 @@ export function Home() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full py-4 rounded-xl flex items-center justify-center gap-3 shadow-lg transition-all duration-200 cursor-pointer"
+                  disabled={status === "sending"}
+                  className="w-full py-4 rounded-xl flex items-center justify-center gap-3 shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                   style={{ backgroundColor: "#0077B6", color: "white", fontWeight: 600 }}
                 >
-                  {submitted ? (
+                  {status === "sending" ? (
+                    <span>Enviando...</span>
+                  ) : status === "success" ? (
                     <span>¡Mensaje enviado!</span>
                   ) : (
                     <>
@@ -283,7 +299,7 @@ export function Home() {
                   )}
                 </motion.button>
 
-                {submitted && (
+                {status === "success" && (
                   <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -291,6 +307,17 @@ export function Home() {
                     style={{ color: "#0077B6" }}
                   >
                     Gracias por tu mensaje. Te responderé pronto 👋
+                  </motion.p>
+                )}
+
+                {status === "error" && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center mt-4 text-sm"
+                    style={{ color: "#d62828" }}
+                  >
+                    No se pudo enviar el mensaje. Inténtalo de nuevo.
                   </motion.p>
                 )}
               </form>

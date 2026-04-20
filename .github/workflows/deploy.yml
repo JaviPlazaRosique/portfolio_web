@@ -66,6 +66,7 @@ jobs:
         run: npm run build
         env:
           VITE_BASE_URL: /portfolio_web/
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
