@@ -5,7 +5,6 @@ import { useState } from "react";
 const NAV_LINKS = [
   { label: "Inicio", path: "/" },
   { label: "Sobre Mí", path: "/sobre-mi" },
-  { label: "Calculadora FinOps", path: "/calculadora-finops" },
 ];
 
 export function Layout() {

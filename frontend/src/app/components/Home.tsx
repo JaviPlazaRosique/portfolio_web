@@ -124,15 +124,6 @@ export function Home() {
             >
               Sobre Mí
             </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate("/calculadora-finops")}
-              className="px-8 py-4 rounded-xl border-2 shadow-lg transition-all duration-200 cursor-pointer"
-              style={{ borderColor: "#CAF0F8", color: "#CAF0F8", backgroundColor: "transparent", fontWeight: 600 }}
-            >
-              Calculadora FinOps
-            </motion.button>
           </div>
         </motion.div>
 
